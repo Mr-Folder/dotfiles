@@ -4,3 +4,4 @@
 --
 local utils = require("user.zet")
 vim.keymap.set("n", "<leader>z", utils.create_md_file, { desc = "Create markdown zet file" })
+vim.keymap.set("n", "<C-w>z", ":SimpleZoomToggle<CR>")
