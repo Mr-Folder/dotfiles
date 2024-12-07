@@ -36,6 +36,7 @@ export PATH="$PATH:/$HOME/g/.local/bin:/usr/local/go/bin"
 export PATH="$PATH:$HOME/.local/bin/"
 export PATH="$PATH:/opt/nvim/"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH="$PATH:/usr/sbin"
 
 #######################################################
 ################## EXPORT #############################
