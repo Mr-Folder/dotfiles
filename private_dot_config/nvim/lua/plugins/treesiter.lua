@@ -14,7 +14,6 @@ return {
         enable = true,
       },
       indent = {
-        enable = true,
         disable = { "yaml" }, -- Disable YAML indentation
       },
     },
