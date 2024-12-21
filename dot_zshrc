@@ -68,4 +68,4 @@ alias workspace='cd $HOME/Workspace/'
 alias k9s="$HOME/git/k9s/execs/k9s"
 alias sb='cd $HOME/Workspace/Brain/'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
+eval "$(starship init zsh)"
