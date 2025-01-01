@@ -67,5 +67,10 @@ alias sds='cd $HOME/Workspace/sds/'
 alias workspace='cd $HOME/Workspace/'
 alias k9s="$HOME/git/k9s/execs/k9s"
 alias sb='cd $HOME/Workspace/Brain/'
+alias lt="eza -la --icons --git --group-directories-first"
+
+
+# Various sources
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(starship init zsh)"
+ 
