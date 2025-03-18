@@ -1,0 +1,74 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH="$XDG_CONFIG_HOME/zsh/.oh-my-zsh"
+export HISTFILE="$XDG_CONFIG_HOME/zsh/.zsh_history"
+plugins=(autojump copybuffer copyfile dirhistory git jsontools sudo web-search zsh-autosuggestions zsh-syntax-highlighting)
+
+source $ZSH/oh-my-zsh.sh
+export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+#######################################################
+###################### PATH ###########################
+#######################################################
+export PATH="$PATH:/opt/nvim-linux64/bin"
+export PATH="$PATH:/$HOME/g/.local/share/JetBrains/Toolbox/scripts"
+export PATH="$PATH:/$HOME/g/.local/bin:/usr/local/go/bin"
+export PATH="$PATH:$HOME/.local/bin/"
+export PATH="$PATH:/opt/nvim/"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH="$PATH:/usr/sbin"
+
+#######################################################
+##################### ENV #############################
+#######################################################
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#4e4e4e,bold"
+export WORDLIST="/usr/share/wordlist/"
+export N_PREFIX="$HOME/.n"
+export TERM=xterm-256color
+export KUBE_EDITOR="vim"
+export XDG_CONFIG_HOME="$HOME/.config/"
+export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+export NVM_DIR="$HOME/.config//nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export MANPAGER='nvim --appimage-extract-and-run +Man!'
+
+#######################################################
+##################### ALIAS ###########################
+#######################################################
+alias sds="cd ~/Workspace/sds/"
+alias updt="sudo apt-get update && sudo apt-get upgrade"
+alias dirbuster="java -jar /opt/dirbuster/DirBuster-1.0-RC1.jar"
+alias dls="docker image ls"
+alias dcs="docker container ls"
+alias k="kubectl" 
+alias dl='cd $HOME/Downloads/'
+alias sds='cd $HOME/Workspace/sds/'
+alias workspace='cd $HOME/Workspace/'
+alias k9s="$HOME/git/k9s/execs/k9s"
+alias sb='cd $HOME/Workspace/Brain/'
+alias lt="eza -la --icons --git --group-directories-first"
+
+
+# Various sources
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(starship init zsh)"
+source /home/lpeltie/.config/zsh/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
