@@ -2,7 +2,6 @@ format = """
 $directory\
 [](fg:#146A8E bg:#394260)\
 $git_branch\
-$git_status\
 [](fg:#394260 bg:#212736)\
 $nodejs\
 $rust\
