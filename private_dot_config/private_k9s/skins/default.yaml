@@ -6,6 +6,7 @@
 k9s:
   body:
     bgColor: default
+    logoColor: '#0000ff'
   prompt:
     bgColor: default
   info:
