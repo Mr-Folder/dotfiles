@@ -8,3 +8,6 @@ vim.keymap.set("n", "<C-w>z", ":SimpleZoomToggle<CR>")
 
 -- Terminal
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
+
+-- Oil
+vim.keymap.set("n", "<leader>o", ":Oil<CR>")
