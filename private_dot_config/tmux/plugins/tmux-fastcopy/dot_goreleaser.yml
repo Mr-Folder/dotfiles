@@ -1,0 +1,77 @@
+project_name: tmux-fastcopy
+
+before:
+  hooks:
+    # Verify that the version number in the install.sh matches the planned
+    # version.
+    - ./install.sh -c {{.Version}}
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goarch:
+      - 386
+      - amd64
+      - arm
+      - arm64
+    goos:
+      - linux
+      - darwin
+    goarm: [5, 6, 7]
+    ignore:
+      - goos: darwin
+        goarch: arm
+    ldflags: '-s -w -X main._version={{.Version}}'
+
+archives:
+  - name_template: >-
+      {{ .ProjectName }}_
+      {{- .Version }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- with .Arm }}v{{ . }}{{ end }}
+
+aurs:
+  - name: tmux-fastcopy-bin
+    homepage: https://github.com/abhinav/tmux-fastcopy
+    description: "easymotion-style text copying for tmux."
+    maintainers:
+      - 'Abhinav Gupta <mail@abhinavg.net>'
+    license: "GPL-2.0"
+    git_url: "ssh://aur@aur.archlinux.org/tmux-fastcopy-bin.git"
+    skip_upload: auto
+    private_key: '{{ .Env.AUR_KEY }}'
+    package: |-
+      install -Dm755 "./tmux-fastcopy" "${pkgdir}/usr/bin/tmux-fastcopy"
+      install -Dm644 "./LICENSE" "${pkgdir}/usr/share/licenses/tmux-fastcopy/LICENSE"
+      install -Dm644 "./README.md" "${pkgdir}/usr/share/doc/tmux-fastcopy/README.md"
+      install -Dm644 "./CHANGELOG.md" "${pkgdir}/usr/share/doc/tmux-fastcopy/CHANGELOG.md"
+    commit_author:
+      name: Abhinav Gupta
+      email: mail@abhinavg.net
+
+brews:
+  - repository:
+      owner: abhinav
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    commit_msg_template: "{{ .ProjectName }}: Update formula to {{ .Tag }}"
+    commit_author:
+      name: Abhinav Gupta
+      email: mail@abhinavg.net
+    homepage: https://github.com/abhinav/tmux-fastcopy
+    description: "easymotion-style text copying for tmux."
+    license: "GPL-2.0"
+    skip_upload: auto
+    dependencies:
+      - name: tmux
+    test: |
+      system "#{bin}/tmux-fastcopy -version"
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  name_template: "{{ incminor .Tag }}-dev"

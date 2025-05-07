@@ -1,0 +1,53 @@
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Go
+      uses: actions/setup-go@v5
+      with:
+        go-version-file: go.mod
+        cache: true
+
+    - name: Install parse-changelog
+      uses: taiki-e/install-action@v2
+      with:
+        tool: parse-changelog@0.5.1
+
+    - name: Prepare release
+      run: |
+        set -eou pipefail
+        VERSION=${{ github.ref }}
+        VERSION="${VERSION#refs/tags/}"
+        echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+        echo "Releasing $VERSION"
+        echo "Release notes:"
+        echo "----"
+        parse-changelog CHANGELOG.md "${VERSION#v}" | tee "changes.$VERSION.txt"
+        echo "----"
+
+    - name: Release
+      uses: goreleaser/goreleaser-action@v6
+      with:
+        distribution: goreleaser
+        version: latest
+        args: release --clean --release-notes changes.${{ env.VERSION }}.txt
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        AUR_KEY: ${{ secrets.AUR_KEY }}
+        HOMEBREW_TAP_GITHUB_TOKEN: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
+        GORELEASER_CURRENT_TAG: ${{ env.VERSION }}

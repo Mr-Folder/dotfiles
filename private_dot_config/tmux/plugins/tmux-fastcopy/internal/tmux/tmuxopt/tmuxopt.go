@@ -1,0 +1,206 @@
+// Package tmuxopt provides an API for loading and parsing tmux options
+// into Go variables.
+//
+// It provides an API similar to the flag package, but for tmux options.
+package tmuxopt
+
+import (
+	"bufio"
+	"bytes"
+	"flag"
+	"fmt"
+	"strconv"
+	"strings"
+	"sync"
+
+	"github.com/abhinav/tmux-fastcopy/internal/tmux"
+	"go.uber.org/multierr"
+)
+
+// Value is a receiver for a tmux option value.
+type Value interface {
+	Set(value string) error
+}
+
+// MapValue is a receiver for a tmux map value.
+type MapValue interface {
+	Put(key, value string) error
+}
+
+var _ Value = flag.Value(nil) // interface matching
+
+// Loader loads tmux options into user-specified variables.
+type Loader struct {
+	Tmux tmux.Driver
+
+	once   sync.Once
+	values map[string]Value
+	maps   map[string]MapValue // prefix => MapValue
+}
+
+func (l *Loader) init() {
+	l.once.Do(func() {
+		l.values = make(map[string]Value)
+		l.maps = make(map[string]MapValue)
+	})
+}
+
+// Var specifies that the given option should be loaded into the provided Value
+// object.
+func (l *Loader) Var(val Value, option string) {
+	l.init()
+
+	l.values[option] = val
+}
+
+// MapVar specifies that options with the given prefix should be loaded into
+// the provided MapValue.
+//
+// To support maps, tmuxopt loader works by matching the provided prefix
+// against options produced by tmux. If an option name matches the given
+// prefix, the rest of that name is used as the map key and the value for that
+// option as the value for that key.
+//
+// For example, if the prefix is, "foo-item-", then given the following
+// options,
+//
+//	foo-item-a x
+//	foo-item-b y
+//	foo-item-c z
+//
+// We'll get the map,
+//
+//	{a: x, b: y, c: z}
+func (l *Loader) MapVar(val MapValue, prefix string) {
+	l.init()
+
+	l.maps[prefix] = val
+}
+
+// Load loads tmux options using the underlying tmux.Driver with the provided
+// request. This will fill all previously specified values and vars.
+func (l *Loader) Load(req tmux.ShowOptionsRequest) (err error) {
+	if len(l.values) == 0 && len(l.maps) == 0 {
+		return nil
+	}
+
+	out, err := l.Tmux.ShowOptions(req)
+	if err != nil {
+		return err
+	}
+
+	scan := bufio.NewScanner(bytes.NewReader(out))
+	for scan.Scan() {
+		line := scan.Bytes()
+
+		idx := bytes.IndexByte(line, ' ')
+		if idx < 0 {
+			continue
+		}
+
+		name, value := string(line[:idx]), line[idx+1:]
+
+		var serr error
+		if r := l.lookupValue(name); r != nil {
+			serr = r.Set(Unquote(value))
+		} else if k, r := l.lookupMapValue(name); r != nil {
+			serr = r.Put(k, Unquote(value))
+		} else {
+			continue
+		}
+
+		if serr != nil {
+			err = multierr.Append(err, fmt.Errorf("load option %q: %v", name, serr))
+		}
+	}
+
+	return multierr.Append(err, scan.Err())
+}
+
+func (l *Loader) lookupValue(name string) Value {
+	return l.values[name]
+}
+
+func (l *Loader) lookupMapValue(name string) (key string, v MapValue) {
+	for prefix, val := range l.maps {
+		if strings.HasPrefix(name, prefix) {
+			return strings.TrimPrefix(name, prefix), val
+		}
+	}
+	return name, nil
+}
+
+type stringValue string
+
+// StringVar specifies that the given option should be loaded as a string.
+func (l *Loader) StringVar(dest *string, option string) {
+	l.init()
+
+	l.Var((*stringValue)(dest), option)
+}
+
+func (v *stringValue) Set(s string) error {
+	*(*string)(v) = s
+	return nil
+}
+
+type boolValue bool
+
+// BoolVar specifies that the given option should be loaded as a boolean.
+func (l *Loader) BoolVar(dest *bool, option string) {
+	l.init()
+
+	l.Var((*boolValue)(dest), option)
+}
+
+func (v *boolValue) Set(s string) error {
+	switch strings.ToLower(strings.TrimSpace(s)) {
+	case "on", "yes", "true", "1":
+		*(*bool)(v) = true
+	case "off", "no", "false", "0":
+		*(*bool)(v) = false
+	default:
+		return fmt.Errorf("invalid boolean value %q", s)
+	}
+	return nil
+}
+
+// Unquote unquotes a string returned by tmux show-option.
+func Unquote(v []byte) (value string) {
+	if len(v) == 0 {
+		return ""
+	}
+
+	value = string(v)
+	if strings.HasPrefix(value, `'`) {
+		// strconv.Unquote does not like single-quoted strings with
+		// multiple characters. Invert the quotes to let
+		// strconv.Unquote do the heavy-lifting and invert back.
+		value = invertQuotes(value)
+		defer func() {
+			value = invertQuotes(value)
+		}()
+	} else if !strings.Contains(value, `"`) {
+		// If a string is unquoted,
+		// manually quote it to get the benefit of un-escaping characters
+		// from `strconv.Unquote`.
+		// This does not cover the case
+		// where `value` has a double-quote anywhere in the string.
+		// However,
+		// since `value` comes from `tmux show-options`,
+		// values containing double-quotes
+		// come in single-quotes.
+		value = `"` + value + `"`
+	}
+	// Try to unquote but don't fail if it doesn't work.
+	if o, err := strconv.Unquote(value); err == nil {
+		value = o
+	}
+	return value
+}
+
+var _quoteInverter = strings.NewReplacer("'", `"`, `"`, "'")
+
+func invertQuotes(s string) string {
+	return _quoteInverter.Replace(s)
+}

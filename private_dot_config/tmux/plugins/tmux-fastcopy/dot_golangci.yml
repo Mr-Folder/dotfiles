@@ -1,0 +1,34 @@
+version: "2"
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+linters:
+  enable:
+    - nolintlint
+    - revive
+  settings:
+    errcheck:
+      exclude-functions:
+        - fmt.Fprint
+        - fmt.Fprintf
+        - fmt.Fprintln
+    govet:
+      enable:
+        - nilness
+        - reflectvaluecompare
+        - sortslice
+        - unusedwrite
+  exclusions:
+    generated: lax
+    rules:
+      - linters:
+          - revive
+        text: 'unused-parameter: parameter \S+ seems to be unused, consider removing or renaming it as _'
+
+formatters:
+  enable:
+    - gofumpt
+  exclusions:
+    generated: lax
