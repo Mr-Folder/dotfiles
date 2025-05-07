@@ -50,6 +50,7 @@ export NVM_DIR="$HOME/.config//nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export MANPAGER='nvim --appimage-extract-and-run +Man!'
+export EDITOR='nvim'
 
 #######################################################
 ##################### ALIAS ###########################
@@ -66,9 +67,12 @@ alias workspace='cd $HOME/Workspace/'
 alias k9s="$HOME/git/k9s/execs/k9s"
 alias sb='cd $HOME/Workspace/Brain/'
 alias lt="eza -la --icons --git --group-directories-first"
+alias dmux="tmuxinator"
 
 
 # Various sources
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(starship init zsh)"
-source /home/lpeltie/.config/zsh/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f $HOME/.cargo/env ]; then
+  . "$HOME/.cargo/env" 
+fi
