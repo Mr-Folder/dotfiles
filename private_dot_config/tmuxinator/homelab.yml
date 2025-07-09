@@ -16,6 +16,5 @@ windows:
           - nvim
         - ssh:
           - ssh proxmox
-        - shell:
   # Window 3 - nvim
-  - logs: k9s
+  - logs: cd ~ && k9s

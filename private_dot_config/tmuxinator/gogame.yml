@@ -1,6 +1,6 @@
 # /home/lpeltier/.config/tmuxinator/dnts.yml
-name: dnts
-root: ~/Workspace/ifsng-release-dnts/
+name: gogame
+root: ~/Workspace/dktiv/
 
 windows:
   # Window 0 - VPN
@@ -14,11 +14,5 @@ windows:
       panes:
         - nvim:
           - nvim
-        - ssh:
-          - ssh pk01
-        - ssh02:
-          - ssh pk02
-        - ssh03:
-          - ssh pk03
   # Window 3 - nvim
   - logs: cd ~ && k9s
