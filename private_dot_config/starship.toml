@@ -1,3 +1,4 @@
+# #4293f5
 format = """
 $directory\
 [](fg:#146A8E bg:#394260)\
@@ -10,6 +11,12 @@ $php\
 [](fg:#212736 bg:#1d2230)\
 [ ](fg:#1d2230)\
 $character"""
+
+
+right_format = """
+$kubernetes\
+$time
+"""
 
 [directory]
 style = "fg:#e3e5e5 bg:#146a8e"
@@ -38,6 +45,36 @@ symbol = ""
 style = "bg:#212736"
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
+# ~/.config/starship.toml
+[kubernetes]
+symbol  = "󱃾 "
+format  = '  [⛵$context](bold bright-blue)'
+disabled = false
+
+[[kubernetes.contexts]]
+# "bold red" style + default symbol when Kubernetes current context name equals "production" *and* the current user
+# equals "admin_user"
+context_pattern = "production"
+user_pattern = "admin_user"
+style = "bold red"
+context_alias = "prod"
+user_alias = "admin"
+
+[[kubernetes.contexts]]
+# "green" style + a different symbol when Kubernetes current context name contains openshift
+context_pattern = ".*openshift.*"
+style = "green"
+symbol = "💔 "
+context_alias = "openshift"
+
+[[kubernetes.contexts]]
+# Using capture groups
+# Contexts from GKE, AWS and other cloud providers usually carry additional information, like the region/zone.
+# The following entry matches on the GKE format (`gke_projectname_zone_cluster-name`)
+# and renames every matching kube context into a more readable format (`gke-cluster-name`):
+context_pattern = "gke_.*_(?P<cluster>[\\w-]+)"
+context_alias = "gke-$cluster"
+
 [rust]
 symbol = ""
 style = "bg:#212736"
@@ -54,7 +91,6 @@ style = "bg:#212736"
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [time]
-disabled = false
-time_format = "%R" # Hour:Minute Format
-style = "bg:#1d2230"
-format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
+disabled     = false
+time_format  = "%R"                       # Hour:Minute format
+format       = '[ -   $time ](dimmed white bg:none)'
