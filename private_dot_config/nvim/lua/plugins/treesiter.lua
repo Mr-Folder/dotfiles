@@ -9,9 +9,11 @@ return {
         "terraform",
         "html",
         "json",
+        "helm",
       },
       highlight = {
         enable = true,
+        -- disable = { "bash" },
       },
       indent = {
         disable = { "yaml" }, -- Disable YAML indentation

@@ -8,7 +8,6 @@ return {
   opts = {
     -- make sure mason installs the server
     servers = {
-      helm_ls = {},
       yamlls = {
         -- Have to add this for yamlls to understand that we support line folding
         capabilities = {
