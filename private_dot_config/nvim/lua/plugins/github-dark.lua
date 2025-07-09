@@ -1,27 +1,81 @@
 return {
   "projekt0n/github-nvim-theme",
-  lazy = false, -- make sure we load this during startup if it is your main colorscheme
-  priority = 1000, -- make sure to load this before all the other start plugins
+  lazy = false,
+  priority = 1000,
   config = function()
     local options = {
       transparent = true,
-    }
-    local palettes = {
-      all = {
-        yellow = "#000000",
-      },
-    }
-    local specs = {
-      all = {
-        syntax = {
-          tag = "#ff9492",
-          field = "#dbb7ff", -- Field
-          builtin2 = "white", -- Builtin const
-          bg1 = "white",
+      modules = {
+        treesitter = {
+          enable = true,
         },
       },
     }
-    require("github-theme").setup({ palettes = palettes, specs = specs, options = options })
+
+    -- Palette table
+    local palettes = {
+      all = {
+        red = "#FF7B72",
+        purple = "#DCBDFB",
+        orange = "#FFA657",
+        textwhite = "#C9D1D9",
+        bluelight = "#96D0FF",
+        -- pink = "#F692CE",
+        green = "#8DDB8C",
+        bluedark = "#6CB6FF",
+      },
+    }
+
+    -- Spec table
+    local specs = {
+      all = {
+        syntax = {
+          -- Your existing specific syntax overrides with hex codes
+          tag = "#ff9492",
+          field = "#dbb7ff",
+          builtin2 = "white",
+          bg1 = "white",
+
+          -- Direct Hex Codes for common Treesitter categories (these are your "source of truth")
+          func = palettes.all.red, -- Functions/commands (like 'echo', 'az')
+          variable = palettes.all.textwhite, -- Variables (like '$rg')
+          parameter = palettes.all.orange, -- Parameters/Arguments (like '-g')
+          keyword = palettes.all.red, -- Keywords (like 'if', 'for', 'while') - keeping your specific color
+          operator = palettes.all.textwhite, -- Operators (like '=')
+          string = palettes.all.bluedark, -- Strings ("Creating endpoint")
+          comment = "#5C6370", -- Comments (# comments)
+          number = palettes.all.bluelight, -- Numbers
+          type = "#E5C07B", -- Types
+        },
+      },
+    }
+
+    -- Assign treesitter type to specs, use :TSInspect
+    local groups = {
+      all = {
+        -- ["@function.call.bash"] = { fg = specs.all.syntax.func },
+        -- ["@function.builtin.bash"] = { fg = specs.all.syntax.func },
+        -- ["@operator.bash"] = { fg = specs.all.operator },
+        -- ["@variable.bash"] = { fg = specs.all.syntax.variable },
+        ["@number.bash"] = { fg = specs.all.syntax.number },
+        ["@boolean.bash"] = { fg = specs.all.syntax.number },
+        ["@variable.parameter.bash"] = { fg = specs.all.syntax.parameter },
+        -- ["@string.bash"] = { fg = specs.all.syntax.string },
+        -- ["@comment.bash"] = { fg = specs.all.syntax.comment },
+        -- ["@keyword.bash"] = { fg = specs.all.syntax.keyword },
+
+        -- LUA
+        ["@operator.lua"] = { fg = specs.all.syntax.operator },
+        ["@property.lua"] = { fg = specs.all.syntax.variable },
+      },
+    }
+
+    require("github-theme").setup({
+      palettes = palettes,
+      specs = specs,
+      options = options,
+      groups = groups,
+    })
 
     vim.cmd("colorscheme github_dark_default")
   end,
