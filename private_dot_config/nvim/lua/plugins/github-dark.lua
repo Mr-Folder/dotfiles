@@ -23,6 +23,7 @@ return {
         -- pink = "#F692CE",
         green = "#8DDB8C",
         bluedark = "#6CB6FF",
+        darkgrey = "#A9A9A9",
       },
     }
 
@@ -43,7 +44,7 @@ return {
           keyword = palettes.all.red, -- Keywords (like 'if', 'for', 'while') - keeping your specific color
           operator = palettes.all.textwhite, -- Operators (like '=')
           string = palettes.all.bluedark, -- Strings ("Creating endpoint")
-          comment = "#5C6370", -- Comments (# comments)
+          comment = palettes.all.darkgrey,
           number = palettes.all.bluelight, -- Numbers
           type = "#E5C07B", -- Types
         },
