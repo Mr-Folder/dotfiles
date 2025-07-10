@@ -8,6 +8,25 @@ return {
   opts = {
     -- make sure mason installs the server
     servers = {
+      helm_ls = {
+        settings = {
+          ['helm-ls'] = {
+            logLevel = "info",
+            valuesFiles = {
+              mainValuesFile = "values.yaml",
+              lintOverlayValuesFile = "values.lint.yaml",
+              additionalValuesFilesGlobPattern = "values*.yaml"
+            },
+            helmLint = {
+              enabled = true,
+              ignoredMessages = {},
+            },
+            yamlls = {
+              enabled = false, -- Disable yamlls integration to prevent conflicts
+            }
+          }
+        }
+      },
       yamlls = {
         -- Have to add this for yamlls to understand that we support line folding
         capabilities = {
@@ -39,7 +58,17 @@ return {
               url = "https://www.schemastore.org/api/json/catalog.json",
             },
             schemas = {
-              kubernetes = "*.yaml",
+              -- More specific Kubernetes schema patterns to avoid Helm templates
+              kubernetes = {
+                "k8s/**/*.yaml",
+                "kubernetes/**/*.yaml",
+                "manifests/**/*.yaml",
+                "deploy/**/*.yaml",
+                "deployment/**/*.yaml",
+                -- Exclude Helm chart directories
+                "!**/templates/**",
+                "!**/charts/**",
+              },
               ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
               ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
               ["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = "azure-pipelines.{yml,yaml}",
