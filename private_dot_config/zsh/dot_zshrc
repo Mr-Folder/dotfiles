@@ -4,7 +4,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$XDG_CONFIG_HOME/zsh/.oh-my-zsh"
 export HISTFILE="$XDG_CONFIG_HOME/zsh/.zsh_history"
-plugins=(autojump copybuffer copyfile dirhistory git jsontools sudo web-search zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(autojump copybuffer copyfile dirhistory git jsontools sudo web-search zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
@@ -41,6 +41,7 @@ export PATH="$PATH:/usr/sbin"
 #######################################################
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#4e4e4e,bold"
 export WORDLIST="/usr/share/wordlist/"
+export ZLE_RPROMPT_INDENT=6
 export N_PREFIX="$HOME/.n"
 export TERM=xterm-256color
 export KUBE_EDITOR="vim"
@@ -76,3 +77,4 @@ eval "$(starship init zsh)"
 if [ -f $HOME/.cargo/env ]; then
   . "$HOME/.cargo/env" 
 fi
+source /home/lpeltier/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
