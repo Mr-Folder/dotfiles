@@ -48,6 +48,9 @@ return {
           number = palettes.all.bluelight, -- Numbers
           type = "#E5C07B", -- Types
         },
+        -- Render Markdown backgrounds (non-transparent)
+        markdown_code_bg = "#21262d",
+        markdown_code_inline_bg = "#2d333b",
       },
     }
 
@@ -68,6 +71,7 @@ return {
         -- LUA
         ["@operator.lua"] = { fg = specs.all.syntax.operator },
         ["@property.lua"] = { fg = specs.all.syntax.variable },
+        ["@markup.raw.block.markdown"] = { bg = specs.all.markdown_code_bg },
       },
     }
 
