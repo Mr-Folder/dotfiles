@@ -4,6 +4,7 @@ return {
     -- enabled = false,
     opts = {
       ensure_installed = {
+        "bash",
         "yaml",
         "hcl",
         "terraform",

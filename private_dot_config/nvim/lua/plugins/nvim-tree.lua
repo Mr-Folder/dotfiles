@@ -1,5 +1,6 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
+  enabled = true, -- Disabled in favor of Fyler.nvim
   opts = {
     event_handlers = {
       {
