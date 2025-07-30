@@ -11,3 +11,6 @@ vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
 
 -- Oil
 vim.keymap.set("n", "<leader>o", ":Oil<CR>")
+
+-- Diffview
+vim.keymap.set("n", "<leader>df", ":DiffviewOpen<CR>")
