@@ -3,7 +3,7 @@ return {
   event = "LazyFile",
   dependencies = {
     "mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
   },
   opts = {
     -- make sure mason installs the server
