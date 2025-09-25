@@ -1,5 +1,7 @@
 return {
-  "williamboman/mason.nvim",
+
+  "mason-org/mason.nvim",
+  version = "^2.0.0",
   cmd = "Mason",
   keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
   build = ":MasonUpdate",
@@ -7,6 +9,7 @@ return {
   opts = {
     ensure_installed = {
       "yaml-language-server",
+      "terraform-ls",
     },
   },
 }
