@@ -12,6 +12,7 @@ return {
         "html",
         "json",
         "helm",
+        "gotmpl",
       },
       highlight = {
         enable = true,
