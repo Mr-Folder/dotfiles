@@ -71,7 +71,8 @@ alias dmux="tmuxinator"
 
 
 # Various sources
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 eval "$(starship init zsh)"
 if [ -f $HOME/.cargo/env ]; then
   . "$HOME/.cargo/env" 
