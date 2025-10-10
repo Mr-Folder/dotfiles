@@ -12,3 +12,6 @@ vim.keymap.set("n", "<leader>o", ":Oil<CR>")
 
 -- Diffview
 vim.keymap.set("n", "<leader>df", ":DiffviewOpen<CR>")
+
+-- paste without replacing register
+vim.keymap.set("x", "<leader>p", [["_dP]])

@@ -4,6 +4,6 @@ return {
   ft = { "markdown" },
   build = ":call mkdp#util#install()",
   keys = {
-    { "<leader>pm", "<cmd>MarkdownPreview<cr>", desc = "Markdown Preview" },
+    { "<leader>mp", "<cmd>MarkdownPreview<cr>", desc = "Markdown Preview" },
   },
 }
