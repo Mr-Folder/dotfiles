@@ -71,7 +71,11 @@ alias dmux="tmuxinator"
 
 
 # Various sources
+echo >> /home/raccoon/.config/zsh/.zshrc
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/raccoon/.config/zsh/.zshrc
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # Set up fzf key bindings and fuzzy completion
+#
 source <(fzf --zsh)
 eval "$(starship init zsh)"
 if [ -f $HOME/.cargo/env ]; then
