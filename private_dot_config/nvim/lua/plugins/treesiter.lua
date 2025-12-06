@@ -13,6 +13,7 @@ return {
         "json",
         "helm",
         "gotmpl",
+        "go",
       },
       highlight = {
         enable = true,
