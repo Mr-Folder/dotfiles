@@ -15,16 +15,15 @@ return {
     -- Palette table
     local palettes = {
       all = {
-        red = "#FF7B72",
-        purple = "#DCBDFB",
-        orange = "#FFA657",
+        red = "#F47067",
+        orange = "#E3B341",
         textwhite = "#C9D1D9",
-        fullwhite = "#E6EDf3",
+        fullwhite = "#E6EDF3",
         bluelight = "#96D0FF",
-        -- pink = "#F692CE",
         green = "#8DDB8C",
         bluedark = "#6CB6FF",
-        darkgrey = "#A9A9A9",
+        darkgrey = "#8B949E", -- slightly dimmer comment
+        purple = "#C77DFF",
       },
     }
 
@@ -43,7 +42,7 @@ return {
           variable = palettes.all.textwhite, -- Variables (like '$rg')
           parameter = palettes.all.orange, -- Parameters/Arguments (like '-g')
           keyword = palettes.all.red, -- Keywords (like 'if', 'for', 'while') - keeping your specific color
-          operator = palettes.all.textwhite, -- Operators (like '=')
+          operator = palettes.all.red, -- Operators (like '=')
           string = palettes.all.bluedark, -- Strings ("Creating endpoint")
           comment = palettes.all.darkgrey,
           number = palettes.all.bluelight, -- Numbers
@@ -73,6 +72,9 @@ return {
         -- ["@string.bash"] = { fg = specs.all.syntax.string },
         -- ["@comment.bash"] = { fg = specs.all.syntax.comment },
         -- ["@keyword.bash"] = { fg = specs.all.syntax.keyword },
+        ["@variable.member"] = { fg = palettes.all.purple },
+        ["@function"] = { fg = palettes.all.purple },
+        ["@type"] = { fg = palettes.all.purple },
 
         -- LUA
         ["@operator.lua"] = { fg = specs.all.syntax.operator },
