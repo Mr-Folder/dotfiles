@@ -77,7 +77,6 @@ alias lab="cd $HOME/Workspace/homelab/"
 # Various sources
 echo >> $HOME/.config/zsh/.zshrc
 if [ -d "/home/linuxbrew" ];then
-  echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.config/zsh/.zshrc
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 # Set up fzf key bindings and fuzzy completion
@@ -87,5 +86,4 @@ eval "$(starship init zsh)"
 if [ -f $HOME/.cargo/env ]; then
   . "$HOME/.cargo/env" 
 fi
-
 
