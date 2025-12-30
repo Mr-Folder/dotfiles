@@ -71,6 +71,7 @@ alias workspace='cd $HOME/Workspace/'
 alias sb='cd $HOME/Workspace/Brain/'
 alias lt="eza -la --icons --git --group-directories-first"
 alias dmux="tmuxinator"
+alias lab="cd $HOME/Workspace/homelab/"
 
 
 # Various sources
