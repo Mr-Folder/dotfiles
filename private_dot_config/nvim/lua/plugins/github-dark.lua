@@ -19,6 +19,7 @@ return {
         purple = "#DCBDFB",
         orange = "#FFA657",
         textwhite = "#C9D1D9",
+        fullwhite = "#E6EDf3",
         bluelight = "#96D0FF",
         -- pink = "#F692CE",
         green = "#8DDB8C",
@@ -57,6 +58,11 @@ return {
     -- Assign treesitter type to specs, use :TSInspect
     local groups = {
       all = {
+
+        -- Fyler (match Neo-tree-ish colors)
+        FylerFSDirectoryName = { fg = palettes.all.fullwhite }, -- or bluelight / textwhite
+        FylerFSDirectoryIcon = { fg = palettes.all.fullwhite },
+
         -- ["@function.call.bash"] = { fg = specs.all.syntax.func },
         -- ["@function.builtin.bash"] = { fg = specs.all.syntax.func },
         -- ["@operator.bash"] = { fg = specs.all.operator },

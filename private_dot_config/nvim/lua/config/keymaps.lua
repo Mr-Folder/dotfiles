@@ -15,3 +15,7 @@ vim.keymap.set("n", "<leader>df", ":DiffviewOpen<CR>")
 
 -- paste without replacing register
 vim.keymap.set("x", "<leader>p", [["_dP]])
+
+vim.keymap.set("n", "<leader>o", function()
+  require("fyler").toggle()
+end, { desc = "Toggle Fyler" })
