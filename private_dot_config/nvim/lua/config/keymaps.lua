@@ -8,7 +8,7 @@ vim.keymap.set("n", "<C-w>z", ":SimpleZoomToggle<CR>")
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
 
 -- Oil
-vim.keymap.set("n", "<leader>o", ":Oil<CR>")
+vim.keymap.set("n", "<leader>O", ":Oil<CR>")
 
 -- Diffview
 vim.keymap.set("n", "<leader>df", ":DiffviewOpen<CR>")
