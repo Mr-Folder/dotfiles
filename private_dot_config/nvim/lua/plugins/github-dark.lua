@@ -73,6 +73,11 @@ return {
         -- ["@comment.bash"] = { fg = specs.all.syntax.comment },
         -- ["@keyword.bash"] = { fg = specs.all.syntax.keyword },
         ["@variable.member"] = { fg = palettes.all.purple },
+        ["@variable.parameter"] = { fg = palettes.all.purple },
+        ["@lsp.type.parameter"] = { link = "@variable.parameter" },
+        ["@lsp.type.parameter.terraform-vars"] = { link = "@variable.parameter" },
+        ["@lsp.type.property"] = { link = "@variable.member" },
+        ["@lsp.type.property.terraform-vars"] = { link = "@variable.member" },
         ["@function"] = { fg = palettes.all.purple },
         ["@type"] = { fg = palettes.all.purple },
 
