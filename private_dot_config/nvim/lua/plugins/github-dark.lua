@@ -74,11 +74,12 @@ return {
         -- ["@keyword.bash"] = { fg = specs.all.syntax.keyword },
         ["@variable.member"] = { fg = palettes.all.purple },
         ["@variable.parameter"] = { fg = palettes.all.purple },
+        ["@property"] = { fg = palettes.all.purple },
         ["@lsp.type.parameter"] = { link = "@variable.parameter" },
         ["@lsp.type.parameter.terraform-vars"] = { link = "@variable.parameter" },
-        ["@lsp.type.property"] = { link = "@variable.member" },
-        ["@lsp.type.property.terraform-vars"] = { link = "@variable.member" },
-        ["@function"] = { fg = palettes.all.purple },
+        ["@lsp.type.property"] = { link = "@property" },
+        ["@lsp.type.property.terraform-vars"] = { link = "@property" },
+        ["@function"] = { fg = specs.all.syntax.func },
         ["@type"] = { fg = palettes.all.purple },
 
         -- LUA
