@@ -11,6 +11,13 @@ return {
       terraformls = {
         -- Override command so Terraform LSP writes to its own log
       },
+      pyright = {
+        settings = {
+          pyright = {
+            typeCheckingMode = "off",
+          },
+        },
+      },
       helm_ls = {
         settings = {
           ["helm-ls"] = {
