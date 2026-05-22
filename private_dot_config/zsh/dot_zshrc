@@ -3,8 +3,9 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="$XDG_CONFIG_HOME/zsh/.oh-my-zsh"
+export ZSH_CUSTOM=$HOME/.config/zsh_custom/
 export HISTFILE="$XDG_CONFIG_HOME/zsh/.zsh_history"
-plugins=(copybuffer copyfile dirhistory git jsontools sudo web-search zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(copybuffer copyfile dirhistory git jsontools sudo web-search zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
@@ -53,8 +54,6 @@ export NVM_DIR="$HOME/.config//nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export MANPAGER='nvim --appimage-extract-and-run +Man!'
 export EDITOR='nvim'
-export ZSH_CUSTOM=$HOME/.config/zsh_custom/
-export HELMCTL_RELEASES_FILE=$HOME/Workspace/sds/infra/sds-k8s/helm-releases.yaml
 
 #######################################################
 ##################### ALIAS ###########################
@@ -63,7 +62,6 @@ alias sds="cd ~/Workspace/sds/"
 alias updt="sudo apt-get update && sudo apt-get upgrade"
 alias dirbuster="java -jar /opt/dirbuster/DirBuster-1.0-RC1.jar"
 alias dls="docker image ls"
-alias dcs="docker container ls"
 alias k="kubectl" 
 alias dl='cd $HOME/Downloads/'
 alias sds='cd $HOME/Workspace/sds/'
@@ -75,15 +73,16 @@ alias lab="cd $HOME/Workspace/homelab/"
 
 
 # Various sources
-echo >> $HOME/.config/zsh/.zshrc
 if [ -d "/home/linuxbrew" ];then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 # Set up fzf key bindings and fuzzy completion
 #
-source <(fzf --zsh)
 eval "$(starship init zsh)"
 if [ -f $HOME/.cargo/env ]; then
   . "$HOME/.cargo/env" 
 fi
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
