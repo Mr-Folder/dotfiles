@@ -71,6 +71,16 @@ alias lt="eza -la --icons --git --group-directories-first"
 alias dmux="tmuxinator"
 alias lab="cd $HOME/Workspace/homelab/"
 
+#######################################################
+################### FUNCTIONS #########################
+#######################################################
+nettool() {
+  if ! kubectl get pod nettool-debug &>/dev/null; then
+    kubectl run nettool-debug --image=nicolaka/netshoot --restart=Always -- sleep infinity
+    kubectl wait --for=condition=ready pod/nettool-debug --timeout=30s
+  fi
+  kubectl exec -it nettool-debug -- /bin/bash
+}
 
 # Various sources
 if [ -d "/home/linuxbrew" ];then
