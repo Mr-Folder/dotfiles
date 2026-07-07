@@ -52,16 +52,6 @@ format  = '  [⛵$context]($style)'
 style   = 'bold bright-blue'
 disabled = false
 
-# DR clusters in yellow (matched first: "transcity-aks-dr" also contains "transcity-aks")
-[[kubernetes.contexts]]
-context_pattern = ".*dr.*"
-style = "bold yellow"
-
-# Main prod cluster in red
-[[kubernetes.contexts]]
-context_pattern = "transcity-aks"
-style = "bold red"
-
 [rust]
 symbol = ""
 style = "bg:#212736"
