@@ -66,6 +66,12 @@ fi
 
 herdr agent focus "$id" >/dev/null 2>&1
 
+# already inside the floating session (e.g. picker opened from the ctrl+o
+# popup): herdr is on screen with the agent focused, don't nest another popup
+if [ "$(tmux display-message -p '#{session_name}')" = "$CLAUDE_SESSION" ]; then
+  exit 0
+fi
+
 # jump into the floating session once this popup has closed
 client=$(tmux display-message -p '#{client_name}')
 [ -z "$client" ] && client=$(tmux list-clients -F '#{client_name}' | head -1)
