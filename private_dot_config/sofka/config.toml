@@ -1,0 +1,41 @@
+# GitHub Dark for sofka - cool, low-glare variant.
+# Hexes are GitHub Primer dark primitives. Chrome is cool and dim;
+# saturation is spent only where it carries meaning.
+
+[skin]
+name = "catppuccin-mocha"   # base palette; every swatch below replaces it
+# background left unset (false) -> your terminal background shows through
+
+# --- chrome: cool and quiet ------------------------------------------------
+[skin.colors]
+mauve     = "#ff7b72"  # Terminating rows + borders + YAML parent keys (red[3])
+lavender  = "#79c0ff"  # focused border + selected-row bar
+teal      = "#388bfd"  # titles + accent - deeper than #58a6ff (20 uses)
+sky       = "#79c0ff"  # sort arrow
+blue      = "#79c0ff"  # normal rows - the 43/45 color
+sapphire  = "#388bfd"
+rosewater = "#cae8ff"  # marked rows - pale blue, was orange
+flamingo  = "#a5d6ff"
+
+# --- status: muted but still semantic --------------------------------------
+green     = "#3fb950"  # Running / Ready / Bound
+red       = "#f85149"  # CrashLoopBackOff, Error, ...
+maroon    = "#ff7b72"
+peach     = "#db6d28"  # Pending / Progressing / warn - severe.fg, deeper
+yellow    = "#d29922"  # headers + [count] - attention.fg, not bright gold
+pink      = "#ff7b72"  # remapped into the red family - no pink anywhere
+
+# --- text: the real brightness lever ---------------------------------------
+text      = "#c9d1d9"  # 63 uses - down from #e6edf3, drops overall glare
+subtext1  = "#b1bac4"
+subtext0  = "#8b949e"
+overlay1  = "#6e7681"  # dimmed text (27 uses)
+overlay0  = "#484f58"  # Succeeded / Completed / ScaledDown
+
+# --- structure -------------------------------------------------------------
+surface2  = "#484f58"
+surface1  = "#30363d"  # border.default
+surface0  = "#21262d"  # border.muted
+base      = "#0d1117"  # canvas.default; also selected-row text
+mantle    = "#161b22"  # canvas.overlay
+crust     = "#010409"  # canvas.inset
