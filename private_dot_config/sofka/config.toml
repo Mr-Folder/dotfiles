@@ -39,3 +39,10 @@ surface0  = "#21262d"  # border.muted
 base      = "#0d1117"  # canvas.default; also selected-row text
 mantle    = "#161b22"  # canvas.overlay
 crust     = "#010409"  # canvas.inset
+
+# --- views -------------------------------------------------------------------
+# IP is a built-in pods column that only shows in wide mode (`w`). Redeclaring
+# it (wide defaults to false) replaces it in place, so it is always visible.
+[[views."v1/pods".columns]]
+name    = "IP"
+builtin = "IP"
