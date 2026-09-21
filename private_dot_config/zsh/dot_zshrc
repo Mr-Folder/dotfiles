@@ -35,6 +35,7 @@ export KUBE_EDITOR="vim"
 export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
 export MANPAGER='nvim --appimage-extract-and-run +Man!'
 export EDITOR='nvim'
+export KUBE_EDITOR='nvim'
 
 # nvm: lazy-loaded (sourcing nvm.sh is the slowest part of shell startup).
 # Put the newest installed node on PATH directly so node/npm/npx work
