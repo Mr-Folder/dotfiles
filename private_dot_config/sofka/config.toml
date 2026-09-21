@@ -46,3 +46,9 @@ crust     = "#010409"  # canvas.inset
 [[views."v1/pods".columns]]
 name    = "IP"
 builtin = "IP"
+
+# SUSPENDED is a built-in Flux Kustomization column that is wide-only (as of
+# 0.28.3); redeclare it so suspended kustomizations are visible without `w`.
+[[views."kustomize.toolkit.fluxcd.io/v1/kustomizations".columns]]
+name    = "SUSPENDED"
+builtin = "SUSPENDED"
