@@ -1,7 +1,10 @@
+{{- /* Per-host accent colour so SSH sessions are distinguishable */ -}}
+{{- $accent := "#2d4fa8" -}}
+{{- if eq .chezmoi.hostname "raccoon" -}}{{- $accent = "#146a8e" -}}{{- end -}}
 # #4293f5
 format = """
 $directory\
-[](fg:#146A8E bg:#394260)\
+[](fg:{{ $accent }} bg:#394260)\
 $git_branch\
 $git_status\
 [](fg:#394260 bg:#212736)\
@@ -20,7 +23,7 @@ $time
 """
 
 [directory]
-style = "fg:#e3e5e5 bg:#146a8e"
+style = "fg:#e3e5e5 bg:{{ $accent }}"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
